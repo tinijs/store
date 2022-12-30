@@ -38,7 +38,8 @@
     "tinyx": "^2.2.0"
   },
   "peerDependencies": {
-    "@tinijs/core": "file:../core/tinijs-core-0.0.1.tgz"
+    "@tinijs/core": "file:../core/tinijs-core-0.0.1.tgz",
+    "lit": "~2.5.0"
   },
   "devDependencies": {
     "gts": "^4.0.0",

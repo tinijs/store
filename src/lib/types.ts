@@ -1,9 +1,6 @@
 export type Store<States> = Tinyx<States>;
 
-export type TransactionHandler<Payload, Value> = (
-  payload: Payload,
-  value: Value
-) => Value;
+export type SubscriptionChangedCallback<States> = (states: States) => void;
 
 export type Subscriber<T> = (value: T) => void;
 export type Unsubscriber = () => void;
