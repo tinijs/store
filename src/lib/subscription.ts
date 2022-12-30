@@ -12,7 +12,7 @@ import {
 export class StoreSubscription<States> implements ReactiveController {
   private host!: ReactiveControllerHost;
   store!: Store<States>;
-  unsubscribe!: Unsubscriber;
+  unsubscribe?: Unsubscriber;
 
   constructor(host: ReactiveControllerHost) {
     this.host = host;
@@ -38,6 +38,9 @@ export class StoreSubscription<States> implements ReactiveController {
   }
 
   hostDisconnected() {
-    if (this.unsubscribe) this.unsubscribe();
+    if (this.unsubscribe) {
+      this.unsubscribe();
+      this.unsubscribe = undefined;
+    }
   }
 }
