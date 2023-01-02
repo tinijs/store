@@ -1,12 +1,13 @@
-import {getAppInstance} from '@tinijs/core';
-
 import {StoreSubscription} from './subscription';
+import {getStore} from './main';
 
-export function SubscribeStore() {
+export function Shop() {
   return function (target: Object, propertyKey: string) {
     Reflect.defineProperty(target, propertyKey, {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value: new StoreSubscription(target as any),
+      enumerable: false,
+      configurable: false,
     });
   };
 }
@@ -14,7 +15,19 @@ export function SubscribeStore() {
 export function UseStore() {
   return function (target: Object, propertyKey: string) {
     Reflect.defineProperty(target, propertyKey, {
-      get: () => getAppInstance().$store,
+      get: () => getStore(),
+      enumerable: false,
+      configurable: false,
+    });
+  };
+}
+
+export function UseStates() {
+  return function (target: Object, propertyKey: string) {
+    Reflect.defineProperty(target, propertyKey, {
+      get: () => getStore()?.get(),
+      enumerable: false,
+      configurable: false,
     });
   };
 }
