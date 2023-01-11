@@ -1,6 +1,6 @@
 {
   "name": "@tinijs/store",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The state management module for the TiniJS framework.",
   "author": "Lam Nhan",
   "homepage": "https://tinijs.lamnhan.com",
@@ -42,8 +42,8 @@
     "tinyx": "^2.2.0"
   },
   "peerDependencies": {
-    "@tinijs/core": "^0.0.1",
-    "lit": "~2.5.0"
+    "@tinijs/core": "0.0.2",
+    "lit": "~2.6.0"
   },
   "devDependencies": {
     "gts": "^4.0.0",
