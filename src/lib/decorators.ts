@@ -1,7 +1,7 @@
 import {StoreSubscription} from './subscription';
 import {getStore} from './main';
 
-export function Shop() {
+export function SubscribeStore() {
   return function (target: Object, propertyKey: string) {
     Reflect.defineProperty(target, propertyKey, {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
