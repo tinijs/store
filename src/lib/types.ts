@@ -1,4 +1,4 @@
-export type Store<States> = Tinyx<States>;
+export type TiniStore<States> = Tinyx<States>;
 
 export type SubscriptionChangedCallback<States> = (states: States) => void;
 

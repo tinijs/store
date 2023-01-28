@@ -1,0 +1,11 @@
+{
+  "name": "@tinijs/store",
+  "members": [
+    ["function", "createStore"],
+    ["type", "TiniStore", "<States>"],
+    ["class", "StoreSubscription", "<States>"],
+    ["decorator", "SubscribeStore"],
+    ["decorator", "UseStore"],
+    ["decorator", "UseStates"]
+  ]
+}

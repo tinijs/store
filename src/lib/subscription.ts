@@ -1,6 +1,6 @@
 import {ReactiveController, ReactiveControllerHost} from 'lit';
 import {
-  Store,
+  TiniStore,
   Transaction,
   KeyPath,
   Unsubscriber,
@@ -10,7 +10,7 @@ import {getStore} from './main';
 
 export class StoreSubscription<States> implements ReactiveController {
   private _host!: ReactiveControllerHost;
-  store?: null | Store<States>;
+  store?: null | TiniStore<States>;
   unsubscribe?: Unsubscriber;
 
   constructor(host: ReactiveControllerHost) {

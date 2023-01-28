@@ -17,7 +17,7 @@ For more, please visit: <https://tinijs.dev>
 - Add the `states.ts`
 
 ```ts
-import {Store as TiniStore} from '@tinijs/store';
+import {TiniStore} from '@tinijs/store';
 
 const states = {
   key: 'value',
