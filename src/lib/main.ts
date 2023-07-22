@@ -1,16 +1,49 @@
-import {tx} from 'tinyx';
-import {getAppInstance, TiniApp, Global} from '@tinijs/core';
-import {TiniStore} from './types';
+import {Store, StoreOptions, StoreCallback} from './types';
 
-export function createStore<States>(states: States) {
-  return tx(states) as TiniStore<States>;
-}
-
-export function getStore<States>(): null | TiniStore<States> {
-  const appOrGlobal = getAppInstance(true);
-  return (
-    (appOrGlobal as TiniApp).$store ||
-    (appOrGlobal as Global).$tiniStore ||
-    null
-  );
+export function createStore<States>(
+  states: States,
+  options: StoreOptions = {}
+) {
+  const store = new Proxy(states as Object, {
+    get(target, prop: string) {
+      if (prop === 'subscribe') {
+        return (stateKey: string, cb: StoreCallback<unknown>) => {
+          if (stateKey in target) {
+            // subscribe
+            const subscriptions = ((target as any)[`___${stateKey}$`] ||= []);
+            const pointer = subscriptions.push(cb);
+            // unsubscribe
+            return () => subscriptions.splice(pointer - 1, 1);
+          } else {
+            throw new Error(`Unknown state: ${stateKey}`);
+          }
+        };
+      } else if (prop === 'commit') {
+        return (stateKey: string, value: unknown) =>
+          ((store as any)[stateKey] = value);
+      } else {
+        return (target as any)[prop];
+      }
+    },
+    set(target, prop: string, value) {
+      const subscriptions = (target as any)[`___${prop}$`] as
+        | undefined
+        | StoreCallback<unknown>[];
+      // set value
+      const currentValue = (target as any)[prop];
+      const oldValue = !options.preserveOldValue
+        ? currentValue
+        : !(currentValue instanceof Object)
+        ? currentValue
+        : structuredClone(currentValue);
+      (target as any)[prop] = value;
+      // notify subscribers
+      subscriptions?.forEach((cb: StoreCallback<unknown>) =>
+        cb(value, oldValue)
+      );
+      // success
+      return true;
+    },
+  }) as Store<States>;
+  return store;
 }
