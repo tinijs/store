@@ -10,10 +10,13 @@ export function createStore<States>(
         return (stateKey: string, cb: StoreCallback<unknown>) => {
           if (stateKey in target) {
             // subscribe
-            const subscriptions = ((target as any)[`___${stateKey}$`] ||= []);
-            const pointer = subscriptions.push(cb);
+            const subscriptions: Map<symbol, StoreCallback<unknown>> = ((
+              target as any
+            )[`___${stateKey}$`] ||= new Map());
+            const subscriptionId = Symbol();
+            subscriptions.set(subscriptionId, cb);
             // unsubscribe
-            return () => subscriptions.splice(pointer - 1, 1);
+            return () => subscriptions.delete(subscriptionId);
           } else {
             throw new Error(`Unknown state: ${stateKey}`);
           }
@@ -28,7 +31,7 @@ export function createStore<States>(
     set(target, prop: string, value) {
       const subscriptions = (target as any)[`___${prop}$`] as
         | undefined
-        | StoreCallback<unknown>[];
+        | Map<symbol, StoreCallback<unknown>>;
       // set value
       const currentValue = (target as any)[prop];
       const oldValue = !options.preserveOldValue
@@ -38,9 +41,7 @@ export function createStore<States>(
         : structuredClone(currentValue);
       (target as any)[prop] = value;
       // notify subscribers
-      subscriptions?.forEach((cb: StoreCallback<unknown>) =>
-        cb(value, oldValue)
-      );
+      subscriptions?.forEach(cb => cb(value, oldValue));
       // success
       return true;
     },
