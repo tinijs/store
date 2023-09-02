@@ -36,9 +36,6 @@
   "bugs": {
     "url": "https://github.com/tinijs/core/issues"
   },
-  "peerDependencies": {
-    "@tinijs/core": "^0.8.0"
-  },
   "devDependencies": {
     "gts": "^5.0.0",
     "typescript": "~5.1.6"
