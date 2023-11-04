@@ -37,7 +37,7 @@
     "url": "https://github.com/tinijs/core/issues"
   },
   "devDependencies": {
-    "gts": "^5.0.0",
-    "typescript": "~5.1.6"
+    "gts": "^5.2.0",
+    "typescript": "~5.2.2"
   }
 }
