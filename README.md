@@ -79,7 +79,7 @@ mainStore.commit('foo', 'bar3');
 ## Developement
 
 - Create a home for TiniJS: `mkdir TiniJS && cd TiniJS`
-- Fork the repo: `git clone https://github.com/tinijs/store.git`
+- Fork the repo
 - Install dependencies: `cd store && npm i`
 - Make changes & preview locally: `npm run build && npm pack`
 - Push changes & create a PR 👌
