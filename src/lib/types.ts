@@ -5,6 +5,9 @@ export interface StoreOptions {
 }
 
 export type Store<States> = States & {
-  subscribe: <Type>(key: keyof States, cb: StoreCallback<Type>) => () => void;
+  subscribe: <Type>(
+    key: keyof States,
+    callback: StoreCallback<Type>
+  ) => () => void;
   commit: <Type>(key: keyof States, value: Type) => Type;
 };

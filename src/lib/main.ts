@@ -7,14 +7,14 @@ export function createStore<States>(
   const store = new Proxy(states as Object, {
     get(target, prop: string) {
       if (prop === 'subscribe') {
-        return (stateKey: string, cb: StoreCallback<unknown>) => {
+        return (stateKey: string, callback: StoreCallback<unknown>) => {
           if (stateKey in target) {
             // subscribe
             const subscriptions: Map<symbol, StoreCallback<unknown>> = ((
               target as any
             )[`___${stateKey}$`] ||= new Map());
             const subscriptionId = Symbol();
-            subscriptions.set(subscriptionId, cb);
+            subscriptions.set(subscriptionId, callback);
             // unsubscribe
             return () => subscriptions.delete(subscriptionId);
           } else {
@@ -41,7 +41,7 @@ export function createStore<States>(
         : structuredClone(currentValue);
       (target as any)[prop] = value;
       // notify subscribers
-      subscriptions?.forEach(cb => cb(value, oldValue));
+      subscriptions?.forEach(callback => callback(value, oldValue));
       // success
       return true;
     },

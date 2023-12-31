@@ -51,11 +51,15 @@ export class MyComponent extends TiniComponent {
   // also, make this.foo2 reactive (@Reactive() equals @state() of Lit)
   @Subscribe(mainStore, 'foo') @Reactive() foo2 = mainStore.foo;
 
-  // or use a callback
+  // or subscribe manually
+  // NOTE: remember to unsubscribe when the component is destroyed
   onInit() {
-    mainStore.subscribe('foo', value => {
+    this.fooSubscription = mainStore.subscribe('foo', value => {
       // do something
     });
+  }
+  onDestroy() {
+    this.fooSubscription();
   }
 }
 ```
