@@ -8,6 +8,8 @@ export type Store<States> = States & {
   subscribe: <Type>(
     key: keyof States,
     callback: StoreCallback<Type>
-  ) => () => void;
+  ) => StoreUnsubscribe;
   commit: <Type>(key: keyof States, value: Type) => Type;
 };
+
+export type StoreUnsubscribe = () => void;
