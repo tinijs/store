@@ -45,11 +45,15 @@ import {mainStore} from './stores/main';
 export class MyComponent extends TiniComponent {
 
   // 'this.foo' will be updated when 'mainStore.foo' changes
+  // it is reactive by default
   @Subscribe(mainStore) foo = mainStore.foo;
 
-  // use a different name
-  // also, make this.foo2 reactive (@Reactive() equals @state() of Lit)
-  @Subscribe(mainStore, 'foo') @Reactive() foo2 = mainStore.foo;
+  // use a different variable name
+  @Subscribe(mainStore, 'foo') xyz = mainStore.foo;
+
+  // to turn of reactive
+  // set the third argument to false
+  @Subscribe(mainStore, null, false) foo = mainStore.foo;
 
   // or subscribe manually
   // NOTE: remember to unsubscribe when the component is destroyed
@@ -61,6 +65,7 @@ export class MyComponent extends TiniComponent {
   onDestroy() {
     this.fooSubscription();
   }
+
 }
 ```
 
@@ -72,7 +77,7 @@ import {mainStore} from './stores/main';
 // assign a new value
 mainStore.foo = 'bar2';
 
-// or
+// or, using the 'commit' method
 mainStore.commit('foo', 'bar3');
 ```
 
