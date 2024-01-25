@@ -1,6 +1,6 @@
 {
   "name": "@tinijs/store",
-  "version": "0.15.1",
+  "version": "0.16.0",
   "description": "The state management module for the TiniJS framework.",
   "author": "Lam Nhan",
   "homepage": "https://tinijs.dev",
