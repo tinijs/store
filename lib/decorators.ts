@@ -1,4 +1,4 @@
-import {Store} from './types';
+import {Store} from './types.js';
 
 export function Subscribe<States>(
   store: Store<States>,
