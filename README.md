@@ -1,5 +1,8 @@
 # TiniJS Store 
 
+> [!IMPORTANT]
+> This previously experiment is wrapped up, moving forward the development will happen at <https://github.com/tinijs/tinijs/tree/main/packages/store>.
+
 The state management module for the TiniJS framework.
 
 It is very small, under ~1KB at around 50 lines of code.
